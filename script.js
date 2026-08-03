@@ -135,6 +135,33 @@
     });
   });
 
+  /* ---------- click-to-play video previews ---------- */
+
+  var videos = document.querySelectorAll("[data-video]");
+
+  videos.forEach(function (wrap) {
+    var videoId = wrap.getAttribute("data-video");
+    var title = wrap.getAttribute("data-title") || "Video";
+    var preview = wrap.querySelector(".video__preview");
+    if (!preview || !videoId) return;
+
+    function play() {
+      var frame = document.createElement("div");
+      frame.className = "frame video__frame";
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?autoplay=1&rel=0";
+      iframe.title = title;
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.appendChild(iframe);
+      preview.remove();
+      wrap.appendChild(frame);
+    }
+
+    preview.addEventListener("click", play);
+  });
+
   /* ---------- footer year ---------- */
 
   var year = document.getElementById("year");
