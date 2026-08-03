@@ -12,7 +12,7 @@ deploys automatically.
 
 | Page | File | Content |
 | --- | --- | --- |
-| Home | `index.html` | Hero, featured-work index, achievements, background, extracurricular (art + sport), contact band |
+| Home | `index.html` | Contents index (featured publication + all pages), deep dives, milestones, background, extracurricular, contact |
 | Research | `research.html` | EndoWAM publication (in submission) + BiliVLA, Trileg-ESD, Motion-to-Sound |
 | Engineering | `engineering.html` | Automated Material Mover case study + report PDF |
 | Art | `art.html` | Durham Art Competition achievement, evidence links, ArtStation portfolio link |
