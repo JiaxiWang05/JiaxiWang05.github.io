@@ -1,6 +1,5 @@
-/* Jiaxi Wang — personal research website
-   Vanilla JS: header state, mobile nav, scroll reveal,
-   active-section tracking, copy-email interaction. */
+/* Jiaxi Wang — interdisciplinary portfolio
+   Vanilla JS: header state, mobile nav, scroll reveal, copy-email. */
 
 (function () {
   "use strict";
@@ -9,13 +8,11 @@
   var nav = document.querySelector(".nav");
   var navToggle = document.querySelector(".nav__toggle");
   var navLinks = document.querySelectorAll(".nav__links a");
-  var sections = document.querySelectorAll("main section[id]");
 
   /* ---------- header state ---------- */
 
   function onScroll() {
-    if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 8);
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -69,7 +66,7 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
     );
     revealItems.forEach(function (item) {
       revealObserver.observe(item);
@@ -78,44 +75,16 @@
     revealAll();
   }
 
-  /* ---------- active navigation section ---------- */
-
-  if ("IntersectionObserver" in window && sections.length) {
-    var sectionObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var id = entry.target.getAttribute("id");
-          navLinks.forEach(function (link) {
-            var matches = link.getAttribute("href") === "#" + id;
-            link.classList.toggle("is-active", matches);
-            if (matches) {
-              link.setAttribute("aria-current", "true");
-            } else {
-              link.removeAttribute("aria-current");
-            }
-          });
-        });
-      },
-      { rootMargin: "-38% 0px -55% 0px", threshold: 0 }
-    );
-    sections.forEach(function (section) {
-      sectionObserver.observe(section);
-    });
-  }
-
   /* ---------- copy email ---------- */
 
-  var copyButton = document.querySelector("[data-copy]");
-  var copyStatus = document.getElementById("copy-status");
-  var copyTimer = null;
+  var copyButtons = document.querySelectorAll("[data-copy]");
 
   function showStatus(message) {
-    if (!copyStatus) return;
-    copyStatus.textContent = message;
-    if (copyTimer) window.clearTimeout(copyTimer);
-    copyTimer = window.setTimeout(function () {
-      copyStatus.textContent = "";
+    var status = document.getElementById("copy-status");
+    if (!status) return;
+    status.textContent = message;
+    window.setTimeout(function () {
+      status.textContent = "";
     }, 2600);
   }
 
@@ -137,39 +106,34 @@
     return ok;
   }
 
-  if (copyButton) {
-    copyButton.addEventListener("click", function () {
-      var address = copyButton.getAttribute("data-copy") || "";
+  copyButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var address = button.getAttribute("data-copy") || "";
       if (!address) return;
 
-      var done = function (ok) {
+      function done(ok) {
         if (ok) {
-          copyButton.classList.add("is-copied");
-          copyButton.textContent = "Copied";
+          var label = button.getAttribute("data-label") || "Copied";
+          button.textContent = label;
           showStatus("Email address copied to clipboard");
           window.setTimeout(function () {
-            copyButton.classList.remove("is-copied");
-            copyButton.textContent = "Copy";
+            button.textContent = "Copy";
           }, 2600);
         } else {
           showStatus("Copy failed — select the address above manually");
         }
-      };
+      }
 
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(address).then(
-          function () {
-            done(true);
-          },
-          function () {
-            done(fallbackCopy(address));
-          }
+          function () { done(true); },
+          function () { done(fallbackCopy(address)); }
         );
       } else {
         done(fallbackCopy(address));
       }
     });
-  }
+  });
 
   /* ---------- footer year ---------- */
 

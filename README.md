@@ -1,75 +1,64 @@
-# Jiaxi Wang — Personal Research Website
+# Jiaxi Wang — Personal Portfolio
 
-Personal research portfolio for Jiaxi Wang, hosted on GitHub Pages at
-[jiaxiwang05.github.io](https://jiaxiwang05.github.io/).
+Interdisciplinary portfolio for Jiaxi Wang — AI research, medical robotics,
+engineering, visual art, athletics, and international programmes.
+Hosted on GitHub Pages at [jiaxiwang05.github.io](https://jiaxiwang05.github.io/).
 
 Built with semantic HTML5, modern CSS, and vanilla JavaScript. No build
-step, no framework, no backend — push to `main` and GitHub Pages serves it
-from the repository root.
+step, no framework, no backend — push to `main` and the Pages workflow
+deploys automatically.
+
+## Pages
+
+| Page | File | Content |
+| --- | --- | --- |
+| Home | `index.html` | Hero, featured-work index, achievements, background, contact band |
+| Research | `research.html` | EndoWAM publication (in submission) + BiliVLA, Trileg-ESD, Motion-to-Sound |
+| Engineering | `engineering.html` | Automated Material Mover case study + report PDF |
+| Art | `art.html` | Durham Art Competition achievement, evidence links, artwork gallery |
+| Sport | `sport.html` | USA Ultimate registered college player + official link |
+| Certificates | `certificates.html` | EPCC + MITACS certificates with previews and downloads |
+| Contact | `contact.html` | Email (copy), GitHub, CV, profile |
 
 ## Repository structure
 
 ```
 .
-├── index.html        # single-page site (all content)
-├── style.css         # design system + layout
-├── script.js         # nav, scroll reveal, copy-email
-├── cv.pdf            # curriculum vitae (replaced manually)
+├── index.html / research.html / engineering.html / art.html / sport.html / certificates.html / contact.html
+├── style.css            # design system + layout (shared by all pages)
+├── script.js            # nav, scroll reveal, copy-email (shared)
+├── cv.pdf               # curriculum vitae (replace manually)
 ├── assets/
-│   ├── favicon.svg   # favicon mark
+│   ├── favicon.svg      # favicon mark
 │   ├── favicon-180.png  # apple-touch icon
-│   └── og-card.png   # social-sharing preview card
-└── README.md
+│   ├── og-card.png      # social-sharing preview card
+│   ├── art/             # gallery artwork (art-01.jpg … art-12.jpg)
+│   ├── thumbs/          # PDF first-page previews (jpg)
+│   └── pdfs/
+│       ├── endowam-in-submission.pdf
+│       ├── automated-material-mover-report.pdf
+│       ├── epcc-summer-school-2024.pdf
+│       └── mitacs-certificate-of-completion.pdf
+├── .github/workflows/pages.yml   # GitHub Pages deploy workflow
+└── .nojekyll
 ```
 
 ## How to update content
 
-All content lives in `index.html` — there is no data file or build step.
-Search for the section comments to find the right block.
+All content is plain HTML in the page files. Shared navigation and footer
+markup are repeated in each page — when adding a page or changing a label,
+update every page's `<header>` and `<footer>`.
 
-### Projects (Selected Research)
-
-Each project is one `<article class="project">` inside
-`<section id="research">`. The first article is the featured case study;
-the two below it are supporting cards.
-
-- Title: edit the `<h3>`.
-- Institution / role: edit `<p class="project__meta">`.
-- Problem / contribution: edit the `<dt>`/`<dd>` pairs in
-  `<dl class="project__facts">`. Keep each claim verifiable.
-- Results: edit the `<ul class="metric-list">` items. Only report metrics
-  that are real and already documented.
-- Video: replace the `src` in the `<iframe>` with a new YouTube embed URL
-  (`https://www.youtube-nocookie.com/embed/<ID>`), and keep the `title`
-  attribute descriptive.
-
-### Publications
-
-Edit the `<article class="paper">` inside `<section id="publications">`.
-Keep the venue tag honest — use `Submission`, `Under review`, or
-`Accepted` as appropriate, and do not change author names.
-
-### Experience & Education
-
-Two timelines inside `<section id="experience">`: research experience
-(most recent first) and education. Add or remove `<li class="tl">` entries;
-each has a date, role, institution, and optional one-line note.
-
-### Open source / service
-
-Edit `<article class="service">` in `<section id="opensource">`. The GSoC
-project links are the two `<a class="link-arrow">` elements.
-
-### Contact details
-
-Edit the email address in three places in `index.html`:
-
-1. The hero contact line (`hero__contact`) and `mailto:` buttons.
-2. The contact-card email row and its `data-copy` attribute.
-3. The footer email link.
-
-Also update `script.js`? No — `script.js` reads the address from the
-`data-copy` attribute, so only `index.html` needs editing.
+- **Publication**: edit `research.html` (`#endowam`). The PDF lives at
+  `assets/pdfs/endowam-in-submission.pdf`.
+- **Projects**: edit `research.html` project rows or `engineering.html`
+  case-study blocks.
+- **Certificates**: replace the PDF in `assets/pdfs/` and regenerate the
+  preview in `assets/thumbs/` (`pdftoppm -jpeg -r 72 -f 1 -l 1`).
+- **Art gallery**: drop web-sized JPEGs into `assets/art/` and edit the
+  `<figure>` items in `art.html`.
+- **Contact details**: edit the email address and GitHub links in each
+  page's header/footer and in `contact.html`.
 
 ## Local development
 
@@ -79,11 +68,9 @@ Serve the folder from its root (relative paths assume the repo root):
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000.
-
 ## Deploying
 
-GitHub Pages is configured to publish from the `main` branch root:
+`.github/workflows/pages.yml` deploys on every push to `main`:
 
 ```bash
 git add -A
@@ -91,12 +78,19 @@ git commit -m "Update portfolio"
 git push origin main
 ```
 
-The redesign was developed on the `redesign/oxford-robotics` branch.
+Deployment runs under **Actions → Deploy static content to Pages** and the
+site updates at https://jiaxiwang05.github.io shortly after.
 
-## Notes on content integrity
+## Content integrity notes
 
-- No publications, awards, affiliations, results, or statistics were
-  invented. Everything on the page traces back to the original site
-  content or the CV.
-- The AAAI 2027 EndoWAM entry is explicitly labelled a submission.
+- The EndoWAM manuscript is listed as **in submission** — not accepted or
+  published. The PDF is the anonymized review version; check the venue's
+  anonymity policy before the submission deadline if you are concerned
+  about public hosting of the manuscript.
+- No publications, awards, statistics, or credentials were invented.
+  Metrics (mIoU, action precision, navigation success) and the author list
+  are taken from the original site and the paper PDF.
+- The Material Mover case study is grounded in the group's feasibility
+  report (Group 19-AIBM4, Durham University, July 2026).
+- Certificate dates and programme names are taken from the certificate PDFs.
 - The site does not claim any Oxford affiliation.
