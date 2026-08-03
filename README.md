@@ -15,7 +15,7 @@ deploys automatically.
 | Home | `index.html` | Hero, featured-work index, achievements, background, extracurricular (art + sport), contact band |
 | Research | `research.html` | EndoWAM publication (in submission) + BiliVLA, Trileg-ESD, Motion-to-Sound |
 | Engineering | `engineering.html` | Automated Material Mover case study + report PDF |
-| Art | `art.html` | Durham Art Competition achievement, evidence links, artwork gallery |
+| Art | `art.html` | Durham Art Competition achievement, evidence links, ArtStation portfolio link |
 | Sport | `sport.html` | USA Ultimate registered college player + official link |
 | Certificates | `certificates.html` | EPCC + MITACS certificates with previews and downloads |
 | Contact | `contact.html` | Email (copy), GitHub, CV, profile |
@@ -32,7 +32,6 @@ deploys automatically.
 │   ├── favicon.svg      # favicon mark
 │   ├── favicon-180.png  # apple-touch icon
 │   ├── og-card.png      # social-sharing preview card
-│   ├── art/             # gallery artwork (art-01.jpg … art-12.jpg)
 │   ├── thumbs/          # PDF first-page previews (jpg)
 │   └── pdfs/
 │       ├── endowam-in-submission.pdf
@@ -55,8 +54,9 @@ update every page's `<header>` and `<footer>`.
   case-study blocks.
 - **Certificates**: replace the PDF in `assets/pdfs/` and regenerate the
   preview in `assets/thumbs/` (`pdftoppm -jpeg -r 72 -f 1 -l 1`).
-- **Art gallery**: drop web-sized JPEGs into `assets/art/` and edit the
-  `<figure>` items in `art.html`.
+- **Art portfolio**: the art page links to the ArtStation profile
+  (`artstation.com/alison-jiaxi-wang`); edit the link in `art.html` if the
+  handle changes.
 - **Contact details**: edit the email address and GitHub links in each
   page's header/footer and in `contact.html`.
 
