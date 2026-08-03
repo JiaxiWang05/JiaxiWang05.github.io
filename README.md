@@ -15,6 +15,7 @@ deploys automatically.
 | Home | `index.html` | Contents index (featured publication + all pages), deep dives, milestones, background, extracurricular, contact |
 | Research | `research.html` | EndoWAM publication (in submission) + BiliVLA, Trileg-ESD, Motion-to-Sound |
 | Engineering | `engineering.html` | Automated Material Mover case study + report PDF |
+| Open Source | `opensource.html` | GSoC mentoring (INCF) + MITACS research code (gesturecap_mapping) |
 | Art | `art.html` | Durham Art Competition achievement, evidence links, ArtStation portfolio link |
 | Sport | `sport.html` | USA Ultimate registered college player + official link |
 | Certificates | `certificates.html` | EPCC + MITACS certificates with previews and downloads |
