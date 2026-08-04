@@ -958,6 +958,11 @@ a { color: inherit; text-decoration: none; }
 
 .actions-panel__list .ext { color: var(--accent); }
 
+.paper-feature > aside {
+  display: grid;
+  gap: 16px;
+}
+
 /* ============ PROJECT CARDS / ROWS ============ */
 
 .project-row {
